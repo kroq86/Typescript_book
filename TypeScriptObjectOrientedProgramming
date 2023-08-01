@@ -1,0 +1,745 @@
+
+OOP is a programming methodology based on the representation of a program as a collection objects , each of which is an instance of a particular class , and classes form an inheritance hierarchy [1] .
+Ideologically, OOP is an approach to programming as to modeling information objects, solving the main task at a new level structural programming : structuring information in terms of manageability [2] , which significantly improves the manageability of the modeling process itself, which, in turn, is especially important when implementing large projects.
+Manageability for hierarchical systems involves minimizing data redundancy (similar to normalization ) and their integrity, so what is created conveniently manageable will also be conveniently understood. Thus, through the tactical task of manageability, the strategic task is solved - to translate the understanding of the task by the programmer into the most convenient form for further use.
+Main The principles of structuring in the case of OOP are related to various aspects of the basic understanding of the subject matter, which is required for the optimal management of the corresponding model:
+- abstraction for highlighting in the modeled subject what is important for solving a specific problem on the subject, ultimately - the contextual understanding of the subject, formalized in the form of a class;
+- encapsulation for fast and safe organization of proper hierarchical manageability: so that a simple “what to do” command is enough, without simultaneously specifying exactly how to do it, since this is already a different level of management;
+- inheritance for quick and safe organization of related concepts: so that it is enough to take into account only changes at each hierarchical step, without duplicating everything else taken into account in previous steps;
+- polymorphism to determine the point at which it is better to parallelize a single control or, vice versa, to put it together.
+
+# Encapsulation
+One of the fundamental principles of object-oriented programming is encapsulation - the ability to define data as well as a set of functions. that can work with this data, into one component. Most programming languages have the concept of classes for this purpose.
+Let's start with the simplest TypeScript class definition:
+
+```js
+class MyClass {
+    add(x, y) {
+    return x + y;
+    }
+    }
+  
+let classInstance = new MyClass();
+let result = classInstance.add(1,2);
+console.log(`add(1,2) returns ${result}`);
+```
+
+This code is quite easy to read and understand. We created a class called MyClass with a simple add method. To use this class, we simply create an instance of it and call the add method with two arguments.
+# Hidden and public class members
+Another object-oriented principle. which is used in encapsulation is the concept of hidden data - the ability to have public or private variables. Private variables are intended to hide the inner workings of the class from the user, that is, they are used only for internal use. Unintentional modification of these variables can lead to runtime errors.
+TypeScript has the ability to strictly mark access to class members using the public and private keywords. Attempting to access a private member designated as private will result in a compile-time error. As an example, let's look at the following code:
+```js
+class CountClass {
+    private _count: number;
+    constructor() {
+    this._count = 0;
+    }
+    countUp() {
+    this._count++;
+    }
+    getCount() {
+    return this._count;
+    }
+}
+let countInstance = new CountClass() ;
+countInstance._count = 17;
+console.log("countUp : " + test.getCountUp());
+```
+Here _count has a private modifier, which will not allow changing it outside the class to a direct one. When we run this code, we get an error:
+hello.ts(39,15): error TS2341: Property '_count' is private and only
+accessible within class 'CountClass'.
+This feature allows you to avoid errors at the compilation stage, which is good news.
+# Inheritance 
+TypeScript uses familiar object-oriented programming approaches. Of course, one of the most fundamental approaches in class-based programming is the creation of new classes through inheritance.
+Let's look at an example:
+```js 
+class Animal {
+    name:string;
+    constructor(theName: string) { this.name = theName; }
+    move(distanceInMeters: number = 0) {
+    console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+class Snake extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 5) {
+    console.log("Slithering...");
+    super.move(distanceInMeters);
+    }
+}
+class Horse extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 45) {
+    console.log("Galloping...");
+    super.move(distanceInMeters);
+    }
+}
+let sam = new Snake("Sammy the Python");
+let tom: Animal = new Horse("Tommy the Palomino")
+sam.move();
+tom.move(34);
+```
+This example shows many of the possibilities of TypeScript inheritance, just like in other languages. Here we see the extends keyword used to create a subclass. The Horse and Snake classes are based on the Animal class and they get access to its capabilities.
+The example shows how to override base class methods with methods that are specified in the subclass. The Snake and Horse classes create a move method that overrides the move method from the Animal class, giving it class-specific functionality. Note that although tom is declared as Animal, its value is Horse, so calling tom.move(34) will call the overridden Horse class method.
+Derived classes containing constructor functions must call super(), which will execute the base class constructor function.
+
+# Polymorphism
+Polymorphism in object-oriented programming is the ability to process different types of data, i.e. belonging to different classes, using the "same" function or method. In fact, only the name of the method is the same, its source code depends on the class.
+
+All that that during compilation or execution of the program can contain or process values of different types - is polymorphic, for example:
+- variables that change their value to a value of another type;
+- objects that have properties that can change the value of the current type to a value of another type;
+- functions that take arguments of various types.
+
+In TypeScript there is support generics , so we can write an identity function that will work with all types. To do this, we use type variables:
+
+```js
+class A {
+    prop:number
+    constructor(prop: number) {
+    this.prop = prop
+    }
+}
+
+class A extends A {} class B {
+    prop:number
+    constructor(prop: number) {
+    this.prop = prop
+    }
+}
+
+class BB extends B {}function output(objects: A[]) {
+     objects.forEach((object: A) => {
+     console.log(obj.prop)
+ })
+}
+
+ // 1const a:A = new A(1)
+ const b:B = new B
+ (2)output([a, a, a, a])
+ output([a, a, b, b])
+ 
+ // 2const aa:AA = new AA(1)
+ const bb:BB = new BB(2)output([aa, aa, aa, aa])
+ output([aa, aa, bb, bb])
+```
+
+# Classes
+ 
+TypeScript implements an object-oriented approach, it has full support for classes and interfaces. A class represents a template for creating objects and encapsulates the functionality that an object should have. A class defines the state and behavior that an object has.
+The class keyword is used to define a new class. For example, let's define the User class:
+```js
+class User {}
+Once a class is defined, we can instantiate it:
+
+let tom: User = new User();
+let alice = new User();
+
+Two objects of class User are defined here - tom and alice.
+
+Class fields
+To store the state of an object in a class, fields are defined:
+
+class User {
+name:string;
+age:number;
+}
+```
+Two fields are defined here, name and age, which are of types string and number, respectively. In fact, fields represent class-level variables, only var and let are not used to declare them.
+By the name of the object, we can refer to these fields:
+```js
+class User {
+    name:string;
+    age:number;
+}
+ 
+let tom = new User();
+tomname = "Tom";
+tom.age = 36;
+console.log(`name: ${tom.name} age: ${tom.age}`); // name: Tom age: 36
+```
+\
+When defining fields, you can give them some initial values:
+```js 
+class User {
+name: string = "Tom Smith";
+age: number = 18;
+}
+ 
+let user = new User();
+console.log(`name: ${user.name} age: ${user.age}`); // name: Tom Smith age: 18
+```
+# Methods
+Classes can also define behavior - some action that objects of that class should perform. To do this, functions are defined inside the class, which are called methods.
+``` js
+class User {
+    name:string;
+    age:number;
+    print(){
+    console.log(`name: ${this.name} age: ${this.age}`);
+}
+    toString(): string{
+    return `${this.name}: ${this.age}`;
+    }
+}
+```
+Here, two methods are defined in the User class. The print() method prints information about the object to the console, and the toString() method returns some representation of the object as a string. Unlike normal functions, the function keyword is not specified to define methods.
+To refer to fields and other methods of a class within methods, the this keyword is used, which points to the current object of this class.
+Application methods:
+```js 
+class User {
+    name:string;
+    age:number;
+    print(){
+    console.log(`name: ${this.name} age: ${this.age}`);
+    }
+    toString(): string{
+    return `${this.name}: ${this.age}`;
+    }
+}
+ 
+let tom = new User();
+tomname = "Tom";
+tom.age = 36;
+tom.print(); 	// name: Tom age: 36
+ 
+console.log(tom.toString()); 	// Tom: 36
+```
+# Constructors
+In addition to ordinary methods, classes have special functions - constructors, which are defined using the constructor keyword. Constructors perform the initial initialization of an object. For example, let's add a constructor to the User class:
+```js
+class User {
+    name:string;
+    age:number;
+    constructor(userName: string, userAge: number) {
+    this.name = userName;
+    this.age = userAge;
+    }
+    print(){
+    console.log(`name: ${this.name} age: ${this.age}`);
+    }
+}
+ 
+let tom = new User("Tom", 36);
+tom.print(); 	// name: Tom age: 36
+```
+Here the constructor takes two parameters and uses their values to set the value of the name and age fields:
+```js 
+constructor(userName: string, userAge: number) {
+this.name = userName;
+this.age = userAge;
+}
+Then, when the object is created, two values are passed to the constructor for its parameters:
+let tom = new User("Tom", 36);
+```
+# Access Modifiers
+## public
+In our examples, we were able to freely access class members declared in all classes in the program. If you're familiar with classes in other languages, you may have noticed that in the examples above, we didn't use the word public to change the visibility of a class member. For example, C# requires that each member be explicitly marked public for visibility. In TypeScript, every class member will be public by default.
+But we can mark class members public explicitly. The Animal class from the previous section would look like this:
+```js
+class Animal {
+    public name: string;
+    public constructor(theName: string) { this.name = theName; }
+    public move(distanceInMeters: number) {
+    console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+```
+## private
+When a class member is marked private, it cannot be accessed outside of that class. For example:
+```js
+class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+    }
+ 
+new Animal("Cat").name; // error: 'name' is private;
+```
+TypeScript is a structural type system. When we compare two different types, no matter where and how they are declared and implemented, if the types of all their members are compatible, then it can be argued that the types themselves are compatible. However, when types with the private access modifier are compared, this is different. Two types will be considered compatible if both members have the private modifier from the same declaration. This also applies to protected members.
+Let's see an example to understand how it works in practice:
+```js
+class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+    }
+ 
+class Rhino extends Animal {
+    constructor() { super("Rhino"); }
+    }
+ 
+class Employee {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+    }
+ 
+let animal = new Animal("Goat");
+let rhino = new Rhino();
+let employee = new Employee("Bob");
+ 
+animal = rhino;
+animal = employee; // error: 'Animal' and 'Employee' are not compatible
+```
+
+In this example, we have classes Animal and Rhino, where Rhino is a subclass of Animal. We also have a new Employee class that looks identical to Animal. We instantiate these classes and try to access each one to see what happens. Because the private part of Animal and Rhino are declared in the same declaration, they are compatible. However, this does not apply to Employee. When we try to assign an Employee to an Animal we get an error: These types are not compatible. Even though Employee has a private member named name, this is not the member we declared in Animal.
+protected
+The protected modifier acts like private except that members declared protected can be accessed by subclasses. For example:
+
+```js 
+class person {
+    protected name: string;
+    constructor(name: string) { this.name = name; }
+    }
+ 
+class Employee extends Person {
+    private department:string;
+     
+    constructor(name: string, department: string) {
+    super(name);
+    this department = department;
+    }
+ 
+    public getElevatorPitch() {
+    return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+ 
+let howard = new Employee("Howard", "Sales");
+console.log(howard.getElevatorPitch());
+console.log(howard.name); // error
+```
+Note that we can't use the name member outside of the Person class, but we can use it inside a subclass method of Employee because Employee is derived from Person.
+The constructor can also have the protected modifier. This means that a class cannot be instantiated outside of its containing class, but can be inherited. For example:
+```js 
+class person {
+    protected name: string;
+    protected constructor(theName: string) { this.name = theName; }
+    }
+ 
+// Employee can extend Person
+class Employee extends Person {
+    private department:string;
+     
+    constructor(name: string, department: string) {
+    super(name);
+    this department = department;
+    }
+     
+    public getElevatorPitch() {
+    return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+ 
+let howard = new Employee("Howard", "Sales");
+let john = new Person("John"); // error: The 'Person' constructor is protected
+```
+## readonly 
+You can make properties read-only with the readonly keyword. Read-only properties must be initialized when they are declared or in the constructor.
+```js
+class Octopus {
+    readonly name: string;
+    readonly numberOfLegs: number = 8;
+    constructor(theName: string) {
+    this.name = theName;
+    }
+}
+let dad = new Octopus("Man with the 8 strong legs");
+dad.name = "Man with the 3-piece suit"; // error! name is readonly.
+```
+## Parameter Properties
+In our last example, we declared a readonly name member and theName constructor parameter in the Octopus class, and assigned theName to name. This is a very common practice. parameter properties allow you to create and initialize members in one place. Here is a further refinement of the previous Octopus class, using the parameter property:
+```js
+class Octopus {
+    readonly numberOfLegs: number = 8;
+    constructor(readonly name: string) {
+    }
+}
+```
+Notice how we removed theName and shortened the readonly name: string constructor parameter to create and initialize the name member. We have combined declaration and assignment in one place.
+Parameter properties are declared before a constructor parameter that has an accessibility modifier, readonly, or both. Using the parameter property private declares and initializes a private member; public, protected and readonly do the same.
+# Accessors (getters/setters) 
+TypeScript supports getters and setters as a way to intercept object property calls. This gives you more control over when you interact with the properties of the objects.
+Let's rewrite a simple class using get and set. First, let's write an example without using getters and setters.
+```js 
+class Employee {
+    fullName:string;
+    }
+ 
+let employee = new Employee();
+employee.fullName = "Bob Smith";
+if (employee.fullName) {
+console.log(employee.fullName);
+}
+```
+Allowing fullName to be set directly is pretty handy, but it can lead to problems if someone wants to change the name to their liking.
+In this version, we check if the user has a secret password before allowing them to make changes. We do this by replacing the direct access to fullName and using a setter that checks for the password. In addition, we add the appropriate get so that the code works the same as in the previous example.
+```js 
+let passcode = "secret passcode";
+ 
+class Employee {
+    private _fullName: string;
+     
+    get fullName(): string {
+    return this._fullName;
+    }
+ 
+    set fullName(newName: string) {
+        if (passcode && passcode == "secret passcode") {
+        this._fullName = newName;
+        }
+        else {
+        console.log("Error: Unauthorized update of employee!");
+        }
+    }
+}
+ 
+let employee = new Employee();
+employee.fullName = "Bob Smith";
+if (employee.fullName) {
+console.log(employee.fullName);
+}
+```
+To make sure our accessor validates the password, we can modify it and see that if it doesn't match, we get a message that we can't modify the worker object.
+# Abstract classes
+Abstract classes represent classes defined with the abstract keyword. They are in many ways similar to ordinary classes, except that we cannot directly create an object of an abstract class using its constructor.
+```js 
+abstract class Figure {
+}
+ 
+// let someFigure = new Figure() 	// Error!
+```
+As a rule, abstract classes describe entities that do not have a concrete implementation in reality. For example, a geometric figure can represent a circle, a square, a triangle, but as such a geometric figure does not exist in itself. There are specific figures with which we work. At the same time, all figures can have some common functionality. In this case, we can define an abstract figure class, put a common functionality in it, and inherit classes of specific geometric shapes from it:
+```js 
+abstract class Figure {
+    getArea(): void{
+    console.log("Not Implemented")
+    }
+}
+class Rectangle extends Figure{
+    constructor(public width: number, public height: number){
+    super();
+    }
+         
+    getArea(): void{
+    let square = this.width * this.height;
+    console. log("area =", square);
+    }
+}
+ 
+let someFigure: Figure = new Rectangle(20, 30)
+someFigure.getArea(); // area = 600
+```
+In this case, the abstract class defines the getArea() method, which calculates the area of the shape. The rectangle class defines its implementation for this method.
+# Abstract Methods
+However, in this case, the getArea method on the base class doesn't do any useful work, because an abstract shape can't have an area. And in this case, such a method is better defined as abstract:
+```js
+abstract class Figure {
+    abstract getArea(): void;
+    }
+class Rectangle extends Figure{
+    constructor(public width: number, public height: number){
+    super();
+    }
+         
+    getArea(): void{
+    let square = this.width * this.height;
+    console. log("area =", square);
+    }
+}
+ 
+let someFigure: Figure = new Rectangle(20, 30)
+someFigure.getArea();
+```
+An abstract method does not define any implementation. If a class contains abstract methods, then that class must be abstract. In addition, when inheriting, derived classes must implement all abstract methods.
+# abstract fields
+Also, an abstract method can have abstract fields, that is, fields defined with the abstract modifier. When inheriting, the derived class must also provide an implementation for them:
+```js
+abstract class Figure {
+    abstract x: number;
+    abstract y: number;
+    abstract getArea(): void;
+    }
+class Rectangle extends Figure{
+//x: number;
+//y: number;
+     
+    constructor(public x: number, public y: number, public width: number, public height: number){
+    super();
+    }
+         
+    getArea(): void{
+    let square = this.width * this.height;
+    console. log("area =", square);
+    }
+}
+ 
+let someFigure: Figure = new Rectangle(10, 10, 20, 25)
+someFigure.getArea();
+```
+In this case, the Figure class defines two abstract fields x and y that conditionally represent the starting point of the figure:
+```js 
+abstract x: number;
+abstract y: number;
+```
+The Rectangle class provides an implementation for them by defining margins through constructor parameters:
+```js
+constructor(public x: number, public y: number, public width: number, public height: number)
+```
+# Interfaces
+One of the core principles of TypeScript is that type checking is based on the shape of values. This approach is sometimes called " duck typing " - If it looks like a duck, swims like a duck, and quacks like a duck, then it's probably a duck. In TypeScript, interfaces perform the function of naming types, and are a powerful way to define conventions within code as well as outside of a project.
+## Interface Implementation
+In languages such as C# and Java, interfaces are most commonly used to explicitly state that a class conforms to a certain convention. This is also possible in TypeScript.
+```js
+interface ClockInterface {
+    currentTime: Date;
+    }
+ 
+class Clock implements ClockInterface {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+    }
+```
+Also, in the interface, you can describe the methods that are implemented inside the class, as is done for setTime in the following example:
+```js
+interface ClockInterface {
+    currentTime: Date;
+    setTime(d: Date);
+    }
+ 
+class Clock implements ClockInterface {
+    currentTime: Date;
+    setTime(d: Date) {
+    this.currentTime = d;
+    }
+    constructor(h: number, m: number) { }
+    }
+```
+Interfaces describe the public part of a class, but not the private part. This makes it impossible to specify, using an interface, that a class should use concrete types for its private members.
+### Difference between static part and class instance
+When working with classes and interfaces, it's useful to remember that a class has two types: a static part type and an instance type. You could run into an error if you created an interface with a constructor and then tried to write a class that would implement it:
+```js
+interface ClockConstructor {
+    new(hour: number, minute: number);
+    }
+ 
+class Clock implements ClockConstructor {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+    }
+```
+This is because when a class implements an interface, only its instance type is checked. The constructor is in the static part, and is not included in this check.
+Instead of this approach, you need to work directly with the static part of the class. In the following example, we define two interfaces: ClockConstructor for the constructor, and ClockInterface for the class instance. Then, for convenience, we define a createClock constructor function that creates objects of the type that is passed to it as an argument.
+```js
+interface ClockConstructor {
+    new (hour: number, minute: number): ClockInterface;
+    }
+interface ClockInterface {
+    tick();
+    }
+ 
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute);
+    }
+ 
+class DigitalClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+    console. log("beep beep");
+    }
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+    console. log("tick tock");
+    }
+}
+ 
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+```
+Since the first parameter to createClock is of type ClockConstructor, createClock(AnalogClock, 7, 32) checks that AnalogClock has a valid constructor signature.
+## Interface Extension 
+Interfaces can extend each other, just like classes. This allows members of one interface to be copied to another, giving more flexibility in separating interfaces into reusable components.
+```js 
+interface Shape {
+    color:string;
+    }
+ 
+interface Square extends Shape {
+    sideLength: number;
+    }
+ 
+let square = <square>{};
+square color = "blue";
+square.sideLength = 10;
+</square>
+
+```
+
+An interface can extend several other interfaces at once, creating a combination of them:
+
+```js
+interface Shape {
+    color:string;
+    }
+ 
+interface PenStroke {
+    penWidth: number;
+    }
+ 
+interface Square extends Shape, PenStroke {
+    sideLength: number;
+    }
+ 
+let square = <square>{};
+square color = "blue";
+square.sideLength = 10;
+square penWidth = 5.0;
+</square>
+```
+
+### Interfaces Extending Classes 
+
+When an interface extends a class, the interface inherits the members of the class, but not their implementation. This is analogous to an interface describing all the members of a class but not specifying their implementation. Interfaces inherit even private and protected members of the base class. This means that if you create an interface that extends a class with private or protected members, then it can only be implemented by the base class itself or its descendants.
+This is useful in cases where there is a large inheritance hierarchy and you want to specify that the code only works on certain subclasses that have certain properties. Such subclasses do not have to be related to each other, except that they inherit from the same base class. For example:
+```js
+class Control {
+    private state: any;
+    }
+ 
+interface SelectableControl extends Control {
+    select(): void;
+    }
+ 
+class Button extends Control {
+    select() { }
+    }
+ 
+class TextBox extends Control {
+    select() { }
+    }
+ 
+class Image extends Control {
+}
+ 
+class location {
+    select() { }
+    }
+```
+In this example, the SelectableControl contains all members of the Control class, including the private state property. Since state is a private member, only Control descendants can implement the SelectableControl interface. This is because the compatibility of private members requires that they be declared in the same base class, and this is possible only for Control descendants.
+Inside the Control code, you can access the private state member through the SelectableControl instance. Essentially, a SelectableControl behaves the same as a Control that is known to have a select method. The Button and TextBox classes are subtypes of SelectableControl (because they both inherit from Control and have a select method), but Image and Location are not.
+
+
+It is necessary to implement the interaction of the classes Man and Glass, which describes the process of drinking liquid, taking into account the state of its volume for both objects, and also expand this interaction using the intermediate class controller and interfaces for objects in order to expand them, for example: Man -> Cat, Glass - > bowl and so on.
+
+```js 
+interface ContainerForLiquid {
+getContent(): number;
+}
+
+interface Drinker {
+drink(container: ContainerForLiquid): void;
+}
+
+interface Test extends Drinker, ContainerForLiquid {
+  
+}
+
+interface Logger {
+log(someText: string): void;
+}
+
+abstract class Creature implements Drinker {
+protected drunkLiquidVolume: number = 0;
+
+protected logger: Logger;
+
+constructor(logger: Logger) {
+  this.logger = logger;
+}
+
+public drink(container: ContainerForLiquid): void {
+  this.logger.log(
+    `Creature's initial drunk volume: ${this.drunkLiquidVolume}`
+  );
+
+  const liquidContent = container.getContent();
+
+  this.logger.log(`Creature is drinking volume: ${liquidContent}`);
+
+  this.drunkLiquidVolume += liquidContent;
+
+  this.logger.log(`Creature has drunk: ${this.drunkLiquidVolume}`);
+}
+}
+
+class Human extends Creature {}
+
+class Dog extends Creature {}
+
+abstract class Tableware implements ContainerForLiquid {
+protected volume: number;
+protected logger: Logger;
+
+constructor(logger: Logger, volume: number = 0) {
+  this.logger = logger;
+  this.volume = volume;
+}
+
+public getContent(): number {
+const tempVolume = this.volume;
+
+  this.volume = 0;
+
+  this.logger.log("Tableware is empty now!");
+
+  return tempVolume;
+}
+}
+
+class Bottle extends Tableware {
+constructor(logger: Logger, m3: number = 10) {
+  super(logger, m3);
+}
+}
+
+class Bowl extends Bottle {
+constructor(logger: Logger, m3: number = 100) {
+  super(logger, m3);
+}
+}
+
+class LiquidDrinkerController {
+process(drinker: Drinker, container: ContainerForLiquid) {
+  drinker.drink(container);
+}
+}
+
+class ConsoleLogger implements Logger {
+public log(someText: string): void {
+  console.log(`Logger: ${someText}`);
+}
+}
+
+const consoleLogger = new ConsoleLogger();
+const waterController = new LiquidDrinkerController();
+
+const dog = new Dog(consoleLogger);
+const bowl = new Bowl(consoleLogger);
+waterController.process(dog, bowl);
+
+
+const a = {mail: 'df@mail.com'}
+const b = {...a};
+
+console.log(a === b)
+```
+
+# homework
+It is necessary to develop a class hierarchy for the following task. There are phones - Phone that can call (Dial), receive a call (AcceptCall), some models can reject an incoming call (DeclineCall), phones connected via a wired line (LandLinePhone) cannot reject calls.
+Cell phones (CellPhone) - are able to work with text messages - send (sendText) and receive (readText). Also, do not forget about smartphones (SmartPhone). And the fact that there are 2 types of these AndroidPhone and IOSPhone smartphones which are additionally characterized by the Diagonal size. Do not forget about ordinary dialers, for example - BabushkaPhone.
+We also want to sell phones. That's why you have an EShop store and a showcase. But we want to sell not only phones but also other goods (goods). The following is a description of the EShop class and its method to represent all products in the storefront.
+Don't forget to show us a test to check how GooglePixel and Iphone13 work. Tests are also required in all other cases.
+
+	
+
+
